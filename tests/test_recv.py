@@ -40,7 +40,10 @@ class SdrRecvTest(unittest.TestCase):
                                          "--rx-threads", "2"], stderr=subprocess.DEVNULL)
         deadline = time.monotonic() + 10
         while not stream_ready(self.name):
-            self.assertLess(time.monotonic(), deadline, "w1700k-stream did not start")
+            if time.monotonic() > deadline:
+                self.service.kill()  # tearDown does not run after a failed setUp
+                self.service.wait()
+                self.fail("w1700k-stream did not start")
             time.sleep(0.05)
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 

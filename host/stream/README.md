@@ -90,6 +90,14 @@ is as wide as the sample rate and the stream is not 640/2 (which is flat already
 reports what applies in `flatten_active` and `flatten_rate`. The spectrum server writes these
 from the receiver's controller and the page's Flatten toggle.
 
+The correction's FFTs are planned once per process, when the service starts. FFTW measures
+candidate plans to pick the fastest: 0.1 s per transform on x86, but 25 s on a DGX Spark, whose
+FFTW (Ubuntu's arm64 build) times them without a cycle counter. So the service starts with the
+plans an earlier run measured, from the FFTW wisdom it saved in
+`$XDG_CACHE_HOME/w1700k-stream/fftwf-wisdom` (by default under `~/.cache`), or else with estimated
+plans (1.5 times as slow on the Spark) and measures in the background, then switches to the
+measured plans and saves their wisdom.
+
 Measured on unit A, band 1 at 320 Msps, from the receiver's noise floor (relative to 15..45 % of
 Nyquist): without the correction -1.7 / -6.4 / -14.2 / -19.8 / -22.8 dB at 62.5 / 75 / 87.5 / 94 /
 97 % of Nyquist; with it +0.9 / +0.5 / +0.1 / -0.4 / -1.1 dB. The service used 0.8 CPU cores

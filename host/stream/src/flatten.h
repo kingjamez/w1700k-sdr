@@ -42,7 +42,7 @@ private:
     std::unique_ptr<fftwf_complex[], void (*)(void *)> transfer_{nullptr, fftwf_free};
 };
 
-// One thread's overlap-save engine (its own buffers and plans).
+// One thread's overlap-save engine: its own buffer, the process's plans (flatten.cpp).
 class FlattenRun {
 public:
     FlattenRun();
@@ -56,5 +56,4 @@ public:
 
 private:
     fftwf_complex *buffer_;
-    fftwf_plan forward_, inverse_;
 };

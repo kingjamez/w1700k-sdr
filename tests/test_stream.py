@@ -111,7 +111,8 @@ class StreamServiceTest(unittest.TestCase):
                 break
             except (OSError, AssertionError):
                 if time.monotonic() > deadline or self.proc.poll() is not None:
-                    raise AssertionError("w1700k-stream did not start: " + self.proc.stderr.read().decode())
+                    self.proc.kill()  # a live one's stderr would not end
+                    raise AssertionError("w1700k-stream did not start: " + self.proc.communicate()[1].decode())
                 time.sleep(0.05)
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         time.sleep(0.2)
