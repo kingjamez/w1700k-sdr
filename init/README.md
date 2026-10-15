@@ -10,7 +10,11 @@ work beyond its first-stage U-Boot.
 
 ## What you need
 
-- The unit's serial console on a 3.3 V USB serial adapter, 115200 8N1.
+- The unit's serial console on a 3.3 V USB serial adapter, 115200 8N1. With
+  the Ethernet ports facing you, the header's five pins are, left to right,
+  TX, GND, VCC, unused, RX ([OpenWrt's wiki](https://openwrt.org/toh/gemtek/mxf-w1700k)):
+  the adapter's TX goes to RX, its RX to TX, GND to GND, and VCC stays
+  unconnected.
 - An Ethernet cable from a host NIC to the unit's `lan3` port.
 - A Linux host with Python 3.10+, pyserial and OpenSSH (`ssh-keygen`), and the
   build outputs from `make` in the repository root.
@@ -33,6 +37,9 @@ home unless `--data-dir` and `--authorized-key` say otherwise.
 
 For the 10 GbE IQ link (unit `eth1`, 10.77.0.1), give the host side its
 address and jumbo frames: `sudo init/host/link up IFACE10G 10.77.0.10/24 9216`.
+A NIC whose largest MTU is below 9216 works at any MTU from 8236 (the stream's
+largest packet) up: a DGX Spark's RTL8127 stops at 9194 and carries 320 Msps at
+9000.
 
 Settings (serial device, addresses, ports, SSH key) default as shown in
 [`install.example.json`](install.example.json); copy it to

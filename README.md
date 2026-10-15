@@ -91,8 +91,9 @@ firmware and brings the radio up (about 2 s). Without the browser, the same
 operations are `host/bin/w1700k load|start|band|tune|gain|filter|stop|status`.
 
 Build requirements: a C/C++ compiler, make, git, Python 3.10+, the usual
-Buildroot prerequisites, clang, ld.lld, llvm-objcopy and llvm-readobj (RISC-V
-firmware), openssl (firmware container encryption), and
+Buildroot prerequisites, xxd (U-Boot's default environment), clang, ld.lld,
+llvm-objcopy and llvm-readobj (RISC-V firmware), openssl (firmware container
+encryption), and
 `libfftw3-dev` and `zlib` for the stream service and the spectrum server. No vendor firmware is
 downloaded or needed.
 
