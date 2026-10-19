@@ -58,6 +58,7 @@ between them, in 1.22 kHz bins.*
 | [`host/stream/`](host/stream/README.md) | `w1700k-stream`, the host's one receiver of the export: the IQ stream in shared memory for every consumer, and the roll-off correction |
 | [`host/spectrum/`](host/spectrum/README.md) | The spectrum/waterfall web server |
 | [`host/recv/`](host/recv/README.md) | `sdr-recv`, the stream recorder |
+| [`host/soapy/`](host/soapy/README.md) | Pointer to [SoapyW1700K](https://github.com/kingjamez/SoapyW1700K), the SoapySDR module (SDR++, GNU Radio, anything on SoapySDR) |
 | [`init/`](init/README.md) | Installation from stock, updates, recovery |
 | [`include/hw/`](include/hw/README.md) | Register reference: every known MT7996, A-die and AN7581 register, as C headers |
 | [`docs/`](docs/) | [Architecture](docs/architecture.md), [roadmap](docs/roadmap.md) |
